@@ -1,0 +1,308 @@
+/* 🔥 General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🔥 Image Carousel */
+#imageCarousel {
+    max-width: 800px;
+    margin: auto;
+}
+
+.carousel-inner img {
+    height: 315px;
+    object-fit: cover;
+}
+
+/* 🔥 Cards */
+.card {
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔥 Buttons */
+.btn {
+    border-radius: 0 !important;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🔥 Social Buttons */
+.social-btn {
+    border-radius: 50px !important; /* Adjust for more or less roundness */
+    padding: 10px 20px;
+}
+
+/* 🔥 Responsive Design */
+@media (max-width: 1024px) {
+    #video-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #video-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+#home {
+    background: url('images/train-bg.jpg') center/cover no-repeat;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+#home .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#home .btn-lg {
+    font-size: 18px;
+    padding: 12px 20px;
+}
+
+#videosContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns per row */
+    gap: 15px; /* Space between videos */
+    padding: 20px;
+    justify-items: center;
+}
+
+.video-item {
+    width: 100%;
+    max-width: 350px; /* Adjust as needed */
+    text-align: center;
+}
+
+#loadMoreBtn {
+    display: block;
+    margin: 20px auto; /* Center Align */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#loadMoreBtn:hover {
+    background-color: #0056b3;
+}
+
+#featuredVideo {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px; /* Adjust width */
+}
+
+#featuredVideo iframe {
+    width: 100%;
+    border-radius: 10px; /* Optional: Rounded corners */
+}
+
+.welcome-heading {
+    font-size: 36px;
+    font-weight: bold;
+    background: linear-gradient(to right, #000000, #434343); /* Black Gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Gradient Text Effect */
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 🔥 Welcome Section */
+#home {
+    background: url('images/train-bg.jpg') center/cover no-repeat;
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+/* 🔥 Overlay for better contrast */
+#home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 1; /* Ensure it stays behind the text */
+}
+
+/* 🔥 Styled Welcome Text */
+.welcome-heading {
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(to right, #ffffff, #d3d3d3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.welcome-heading, .welcome-text, .btn {
+    position: relative;
+    z-index: 2; /* Ensure these are above the overlay */
+}
+
+
+/* 🔥 Welcome Paragraph */
+.welcome-text {
+    font-size: 18px;
+    color: #f1f1f1;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* 🔥 Dark Mode Support */
+.dark-mode .welcome-heading {
+    background: linear-gradient(to right, #ffffff, #bbbbbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark-mode .welcome-text {
+    color: #ddd;
+}
+
+/* 🔥 Responsive Adjustments */
+@media (max-width: 768px) {
+    .welcome-heading {
+        font-size: 32px;
+    }
+    .welcome-text {
+        font-size: 16px;
+    }
+}
+
+/* =======================================================
+   🌟 General Website Styling - Rounded UI & Modern Look
+   ======================================================= */
+
+/* 🔥 Base Section Styling */
+section {
+    padding: 50px 20px;
+    border-radius: 15px; /* ✅ Rounded Corners */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* ✅ Soft Shadow */
+    text-align: center;
+    margin-bottom: 20px;
+    background: #ffffff; /* Light background for sections */
+}
+
+/* 🔥 Universal H2 Styling for All Sections */
+section h2 {
+    display: inline-block;
+    background: linear-gradient(to right, #007bff, #0056b3); /* ✅ Blue Gradient */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px; /* ✅ Rounded Borders */
+    font-size: 26px;
+    font-weight: bold;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* =======================================================
+   📌 Videos, Gallery, Contact Section Styling
+   ======================================================= */
+
+#blog, #videos, #gallery, #contact {
+    background: #f8f9fa; /* ✅ Light Background for Contrast */
+}
+
+/* 🔥 Contact Section Special Styling */
+#contact {
+    background: #222; /* ✅ Dark Mode for Contact */
+    color: white;
+    border-radius: 0; /* 🔥 Flattened Corners */
+    margin-bottom: 0; /* 🔥 Merged with Footer */
+}
+
+#contact h2 {
+    background: linear-gradient(to right, #28a745, #218838); /* ✅ Green Gradient */
+}
+
+/* =======================================================
+   🎬 Videos, Gallery, & Blog Post Styling
+   ======================================================= */
+
+/* 🔥 Carousel Images - Gallery */
+.carousel-item img {
+    border-radius: 12px; /* ✅ Smooth Edges */
+    object-fit: cover;
+}
+
+/* 🔥 Gallery Images - 3 Grid Layout */
+#galleryContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* ✅ 3 Columns */
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+#galleryContainer img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px; /* ✅ Rounded Images */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+/* 🔥 Rounded Buttons for Blog, Videos, Gallery, Contact Sections */
+#blog .btn, #videos .btn, #gallery .btn, #contact .btn {
+    border-radius: 50px; /* ✅ Fully Rounded Buttons */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#blog .btn:hover, #videos .btn:hover, #gallery .btn:hover, #contact .btn:hover {
+    opacity: 0.8;
+}
+
+/* =======================================================
+   📱 Responsive Adjustments
+   ======================================================= */
+
+@media (max-width: 768px) {
+    section h2 {
+        font-size: 22px;
+        padding: 12px 25px;
+    }
+    
+    #galleryContainer {
+        grid-template-columns: repeat(2, 1fr); /* ✅ 2 Columns on Tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    #galleryContainer {
+        grid-template-columns: repeat(1, 1fr); /* ✅ 1 Column on Mobile */
+    }
+}
