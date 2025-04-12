@@ -1,4 +1,4 @@
-/* 🔥 General Styles */
+/* 🌐 Global Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -7,21 +7,59 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* 🔥 Image Carousel */
+/* 🌑 Dark Mode Global Styles */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0;
+}
+
+body.dark-mode section,
+body.dark-mode .card,
+body.dark-mode .carousel-inner,
+body.dark-mode #galleryContainer img {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0;
+    box-shadow: none;
+}
+
+body.dark-mode .btn {
+    background-color: #444 !important;
+    color: #fff !important;
+}
+
+body.dark-mode h2 {
+    background: linear-gradient(to right, #555, #333) !important;
+    color: #fff !important;
+}
+
+body.dark-mode .welcome-heading {
+    background: linear-gradient(to right, #ffffff, #bbbbbb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .welcome-text {
+    color: #ddd;
+}
+
+/* 🖼️ Carousel */
 #imageCarousel {
     max-width: 800px;
     margin: auto;
 }
 
-.carousel-inner img {
+.carousel-inner img,
+.carousel-item img {
     height: 315px;
     object-fit: cover;
+    border-radius: 12px;
 }
 
-/* 🔥 Cards */
+/* 📦 Cards */
 .card {
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .card:hover {
@@ -29,72 +67,55 @@ body {
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* 🔥 Buttons */
-.btn {
-    border-radius: 0 !important;
-    padding: 10px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* 🔥 Social Buttons */
+/* 🔘 Buttons */
+.btn,
 .social-btn {
-    border-radius: 50px !important; /* Adjust for more or less roundness */
+    border-radius: 50px !important;
     padding: 10px 20px;
-}
-
-/* 🔥 Responsive Design */
-@media (max-width: 1024px) {
-    #video-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    #video-container {
-        grid-template-columns: repeat(1, 1fr);
-    }
-}
-
-#home {
-    background: url('images/train-bg.jpg') center/cover no-repeat;
-    color: white;
-    padding: 100px 20px;
-    text-align: center;
-}
-
-#home .card {
+    font-size: 16px;
     border: none;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-#home .btn-lg {
-    font-size: 18px;
-    padding: 12px 20px;
+.btn:hover,
+.social-btn:hover {
+    opacity: 0.8;
+}
+
+/* 🎥 Featured & Video Grid */
+#featuredVideo {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+#featuredVideo iframe {
+    width: 100%;
+    border-radius: 10px;
 }
 
 #videosContainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 Columns per row */
-    gap: 15px; /* Space between videos */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
     padding: 20px;
     justify-items: center;
 }
 
 .video-item {
     width: 100%;
-    max-width: 350px; /* Adjust as needed */
+    max-width: 350px;
     text-align: center;
 }
 
 #loadMoreBtn {
     display: block;
-    margin: 20px auto; /* Center Align */
+    margin: 20px auto;
     padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
     background-color: #007bff;
     color: white;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
     transition: background 0.3s;
@@ -104,28 +125,7 @@ body {
     background-color: #0056b3;
 }
 
-#featuredVideo {
-    text-align: center;
-    margin: 20px auto;
-    max-width: 800px; /* Adjust width */
-}
-
-#featuredVideo iframe {
-    width: 100%;
-    border-radius: 10px; /* Optional: Rounded corners */
-}
-
-.welcome-heading {
-    font-size: 36px;
-    font-weight: bold;
-    background: linear-gradient(to right, #000000, #434343); /* Black Gradient */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Gradient Text Effect */
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* 🔥 Welcome Section */
+/* 🏠 Welcome Section */
 #home {
     background: url('images/train-bg.jpg') center/cover no-repeat;
     padding: 80px 20px;
@@ -134,7 +134,6 @@ body {
     position: relative;
 }
 
-/* 🔥 Overlay for better contrast */
 #home::before {
     content: "";
     position: absolute;
@@ -142,11 +141,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-    z-index: 1; /* Ensure it stays behind the text */
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
-/* 🔥 Styled Welcome Text */
 .welcome-heading {
     font-size: 42px;
     font-weight: bold;
@@ -156,109 +154,25 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     position: relative;
     z-index: 2;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     margin-bottom: 10px;
-    font-family: 'Poppins', sans-serif;
 }
 
-.welcome-heading, .welcome-text, .btn {
-    position: relative;
-    z-index: 2; /* Ensure these are above the overlay */
-}
-
-
-/* 🔥 Welcome Paragraph */
 .welcome-text {
     font-size: 18px;
     color: #f1f1f1;
     max-width: 600px;
     margin: auto;
+    font-family: 'Roboto', sans-serif;
     position: relative;
     z-index: 2;
-    font-family: 'Roboto', sans-serif;
 }
 
-/* 🔥 Dark Mode Support */
-.dark-mode .welcome-heading {
-    background: linear-gradient(to right, #ffffff, #bbbbbb);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.dark-mode .welcome-text {
-    color: #ddd;
-}
-
-/* 🔥 Responsive Adjustments */
-@media (max-width: 768px) {
-    .welcome-heading {
-        font-size: 32px;
-    }
-    .welcome-text {
-        font-size: 16px;
-    }
-}
-
-/* =======================================================
-   🌟 General Website Styling - Rounded UI & Modern Look
-   ======================================================= */
-
-/* 🔥 Base Section Styling */
-section {
-    padding: 50px 20px;
-    border-radius: 15px; /* ✅ Rounded Corners */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* ✅ Soft Shadow */
-    text-align: center;
-    margin-bottom: 20px;
-    background: #ffffff; /* Light background for sections */
-}
-
-/* 🔥 Universal H2 Styling for All Sections */
-section h2 {
-    display: inline-block;
-    background: linear-gradient(to right, #007bff, #0056b3); /* ✅ Blue Gradient */
-    color: white;
-    padding: 15px 30px;
-    border-radius: 10px; /* ✅ Rounded Borders */
-    font-size: 26px;
-    font-weight: bold;
-    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* =======================================================
-   📌 Videos, Gallery, Contact Section Styling
-   ======================================================= */
-
-#blog, #videos, #gallery, #contact {
-    background: #f8f9fa; /* ✅ Light Background for Contrast */
-}
-
-/* 🔥 Contact Section Special Styling */
-#contact {
-    background: #222; /* ✅ Dark Mode for Contact */
-    color: white;
-    border-radius: 0; /* 🔥 Flattened Corners */
-    margin-bottom: 0; /* 🔥 Merged with Footer */
-}
-
-#contact h2 {
-    background: linear-gradient(to right, #28a745, #218838); /* ✅ Green Gradient */
-}
-
-/* =======================================================
-   🎬 Videos, Gallery, & Blog Post Styling
-   ======================================================= */
-
-/* 🔥 Carousel Images - Gallery */
-.carousel-item img {
-    border-radius: 12px; /* ✅ Smooth Edges */
-    object-fit: cover;
-}
-
-/* 🔥 Gallery Images - 3 Grid Layout */
+/* 🖼️ Gallery */
 #galleryContainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* ✅ 3 Columns */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
     justify-items: center;
@@ -267,42 +181,146 @@ section h2 {
 #galleryContainer img {
     width: 100%;
     height: auto;
-    border-radius: 12px; /* ✅ Rounded Images */
+    border-radius: 12px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     object-fit: cover;
 }
 
-/* 🔥 Rounded Buttons for Blog, Videos, Gallery, Contact Sections */
-#blog .btn, #videos .btn, #gallery .btn, #contact .btn {
-    border-radius: 50px; /* ✅ Fully Rounded Buttons */
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
+/* 📍 Sections */
+section {
+    padding: 50px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+    background: #ffffff;
+}
+
+section h2 {
+    display: inline-block;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 📞 Contact Section */
+#contact {
+    background: #222;
+    color: white;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+#contact h2 {
+    background: linear-gradient(to right, #28a745, #218838);
+}
+
+/* 🌙 Dark Mode Toggle with Icons */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
-#blog .btn:hover, #videos .btn:hover, #gallery .btn:hover, #contact .btn:hover {
-    opacity: 0.8;
+.toggle-label .icon {
+    position: absolute;
+    top: 4px;
+    font-size: 20px;
+    z-index: 1;
+    transition: opacity 0.3s ease;
 }
 
-/* =======================================================
-   📱 Responsive Adjustments
-   ======================================================= */
+.toggle-label .sun {
+    left: 8px;
+    opacity: 1;
+}
+
+.toggle-label .moon {
+    right: 8px;
+    opacity: 0;
+}
+
+.toggle-label .slider {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #ccc;
+    border-radius: 30px;
+    transition: background-color 0.4s;
+}
+
+.toggle-label .slider::before {
+    content: "";
+    position: absolute;
+    height: 24px; width: 24px;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked + .toggle-label .slider {
+    background-color: #333;
+}
+
+input[type="checkbox"]:checked + .toggle-label .slider::before {
+    transform: translateX(30px);
+}
+
+input[type="checkbox"]:checked + .toggle-label .sun {
+    opacity: 0;
+}
+
+input[type="checkbox"]:checked + .toggle-label .moon {
+    opacity: 1;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 1024px) {
+    #videosContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 @media (max-width: 768px) {
     section h2 {
         font-size: 22px;
         padding: 12px 25px;
     }
-    
+
     #galleryContainer {
-        grid-template-columns: repeat(2, 1fr); /* ✅ 2 Columns on Tablets */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .welcome-heading {
+        font-size: 32px;
+    }
+
+    .welcome-text {
+        font-size: 16px;
     }
 }
 
 @media (max-width: 480px) {
     #galleryContainer {
-        grid-template-columns: repeat(1, 1fr); /* ✅ 1 Column on Mobile */
+        grid-template-columns: repeat(1, 1fr);
     }
 }

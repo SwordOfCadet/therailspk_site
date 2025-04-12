@@ -117,3 +117,9 @@ function savePost() {
     console.log("Saved Post:", content);
     alert("Post Saved Successfully!");
 }
+
+const toggle = document.getElementById('darkModeToggle');
+
+toggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark-mode');
+});
