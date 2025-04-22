@@ -1,125 +1,95 @@
-// ✅ Smooth Scroll Effect for Navbar Links
+// ✅ Smooth Scroll Only for Internal Links
 document.querySelectorAll(".nav-link").forEach(link => {
-    link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
-    });
+  link.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  });
 });
 
 // ✅ Image Carousel Auto-Slide
-document.addEventListener("DOMContentLoaded", function () {
-    let imageCarousel = new bootstrap.Carousel(document.getElementById("imageCarousel"), {
-        interval: 3000,
-        ride: "carousel"
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  new bootstrap.Carousel(document.getElementById("imageCarousel"), {
+    interval: 3000,
+    ride: "carousel"
+  });
 });
 
-// ✅ YouTube API Integration with Load More Feature
-const API_KEY = "AIzaSyAJySKdCS1_BNrvFAf6hGtvMbU0TLgO_7w";  
-const CHANNEL_ID = "UC0jiPBcE-2QbiBLt2m3MHSQ";  
-let nextPageToken = ""; // To store next page token for pagination
+// ✅ YouTube Playlist Fetching & Display
+const apiKey = "AIzaSyAJySKdCS1_BNrvFAf6hGtvMbU0TLgO_7w";
+const playlists = {
+  full: "PLs_uju7fb5bfmkbcSJJKFpm1DPe-B1Zhy",
+  shorts: "PLs_uju7fb5bc2sg2kkgNeG8GCt7G5WypE"
+};
 
-let totalVideosLoaded = 0; // Track number of videos loaded
+async function fetchPlaylistVideos(playlistId, containerId) {
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${playlistId}&key=${apiKey}`);
+  const data = await res.json();
 
-// ✅ Fetch Videos Function
-async function fetchVideos(loadMore = false) {
-    try {
-        let apiURL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=6`;
+  for (const item of data.items) {
+    const videoId = item.snippet.resourceId.videoId;
+    const title = item.snippet.title;
+    const thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-        if (loadMore && nextPageToken) {
-            apiURL += `&pageToken=${nextPageToken}`;
-        }
+    const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${apiKey}`);
+    const statsData = await statsRes.json();
+    const views = statsData.items[0]?.statistics?.viewCount || 0;
 
-        const response = await fetch(apiURL);
-        if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
+    const card = document.createElement("div");
+    card.className = "video-card";
+    card.innerHTML = `
+      <img class="video-thumb" src="${thumbnail}" alt="${title}">
+      <div class="video-info">
+        <div class="video-title">${title}</div>
+        <div class="video-views">${parseInt(views).toLocaleString()} views</div>
+      </div>
+    `;
 
-        const data = await response.json();
-        console.log("API Response:", data); // Debugging Line
+    card.onclick = () => {
+      card.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
+    };
 
-        nextPageToken = data.nextPageToken || "";
-
-        if (!data.items || data.items.length === 0) {
-            console.warn("No videos found.");
-            return;
-        }
-
-        const videosContainer = document.getElementById("videosContainer");
-
-        data.items.forEach(video => {
-            if (video.id.videoId) {
-                const videoElement = document.createElement("div");
-                videoElement.classList.add("video-item");
-
-                videoElement.innerHTML = `
-                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/${video.id.videoId}" frameborder="0" allowfullscreen></iframe>
-                    <p>${video.snippet.title}</p>
-                `;
-
-                videosContainer.appendChild(videoElement);
-            }
-        });
-
-        // Hide Load More button if no more videos are available
-        if (!nextPageToken) {
-            document.getElementById("loadMoreBtn").style.display = "none";
-        }
-
-    } catch (error) {
-        console.error("YouTube API Error:", error);
-    }
+    document.getElementById(containerId).appendChild(card);
+  }
 }
 
-// ✅ Load Initial Videos on Page Load
-document.addEventListener("DOMContentLoaded", () => fetchVideos());
+fetchPlaylistVideos(playlists.full, "fullVideoGrid");
+fetchPlaylistVideos(playlists.shorts, "shortVideoGrid");
 
-// ✅ Load More Button Event
-document.getElementById("loadMoreBtn").addEventListener("click", function () {
-    fetchVideos(true);
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const blogCards = document.querySelectorAll(".blog-card");
-    const blogPreview = document.getElementById("blogPreview");
-    const previewImage = document.getElementById("previewImage");
-    const previewTitle = document.getElementById("previewTitle");
-    const previewDescription = document.getElementById("previewDescription");
-
-    blogCards.forEach(card => {
-        card.addEventListener("mouseenter", function () {
-            // Get data attributes
-            const title = this.getAttribute("data-title");
-            const image = this.getAttribute("data-image");
-            const description = this.getAttribute("data-description");
-
-            // Update Preview Box
-            previewTitle.innerText = title;
-            previewImage.src = image;
-            previewDescription.innerText = description;
-            blogPreview.classList.remove("hidden");
-        });
-
-        card.addEventListener("mouseleave", function () {
-            blogPreview.classList.add("hidden"); // Hide preview on mouse leave
-        });
-    });
-});
-
-var quill = new Quill('#editor-container', {
-    theme: 'snow',
-    modules: {
-        toolbar: '#toolbar-container'
-    }
-});
-
-function savePost() {
-    var content = quill.root.innerHTML;
-    console.log("Saved Post:", content);
-    alert("Post Saved Successfully!");
-}
-
+// ✅ Dark Mode Toggle
 const toggle = document.getElementById('darkModeToggle');
-
 toggle.addEventListener('change', () => {
   document.body.classList.toggle('dark-mode');
+});
+
+// ✅ Blog Modal SPA Popup
+const modal = document.getElementById('blogModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDate = document.getElementById('modalDate');
+const modalContent = document.getElementById('modalContent');
+const closeBtn = document.querySelector('.close-btn');
+
+document.querySelectorAll('.read-more').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const card = link.closest('.blog-card');
+    modalTitle.textContent = card.getAttribute('data-title');
+    modalDate.textContent = card.getAttribute('data-date');
+    modalContent.textContent = card.getAttribute('data-content');
+    modal.style.display = 'flex';
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target === modal) modal.style.display = 'none';
 });

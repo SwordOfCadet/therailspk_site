@@ -68,7 +68,8 @@
                 </label>
               </div>              
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                 <li class="nav-item"><a class="nav-link" href="#videos">Videos</a></li>
                 <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -103,14 +104,15 @@
 </section>
 
     <!-- ✅ Latest Train Videos -->
-<section id="videos" class="container py-5">
-    <h2>🎥 Latest Train Videos</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="video-container">
-        <!-- Videos dynamically load honge -->
-    </div>
-    <div id="videosContainer"></div>
-    <button id="loadMoreBtn" class="btn btn-primary">Load More</button>
-</section>
+    <section id="fullVideos">
+        <h2>🎬 Full-Length Videos</h2>
+        <div class="video-grid" id="fullVideoGrid"></div>
+      </section>
+      
+      <section id="shortVideos">
+        <h2>🔥 Short Videos</h2>
+        <div class="video-grid" id="shortVideoGrid"></div>
+      </section>
 
     <!-- ✅ Image Gallery -->
 <section id="gallery" class="container py-5">
