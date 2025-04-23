@@ -28,39 +28,44 @@ const playlists = {
   shorts: "PLs_uju7fb5bc2sg2kkgNeG8GCt7G5WypE"
 };
 
-async function fetchPlaylistVideos(playlistId, containerId) {
-  const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${playlistId}&key=${apiKey}`);
-  const data = await res.json();
+async function fetchAllPlaylistVideos(playlistId, containerId) {
+  let nextPageToken = "";
+  do {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}&pageToken=${nextPageToken}`);
+    const data = await res.json();
+    
+    for (const item of data.items) {
+      const videoId = item.snippet.resourceId.videoId;
+      const title = item.snippet.title;
+      const thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-  for (const item of data.items) {
-    const videoId = item.snippet.resourceId.videoId;
-    const title = item.snippet.title;
-    const thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${apiKey}`);
+      const statsData = await statsRes.json();
+      const views = statsData.items[0]?.statistics?.viewCount || 0;
 
-    const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${apiKey}`);
-    const statsData = await statsRes.json();
-    const views = statsData.items[0]?.statistics?.viewCount || 0;
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.innerHTML = `
+        <img class="video-thumb" src="${thumbnail}" alt="${title}">
+        <div class="video-info">
+          <div class="video-title">${title}</div>
+          <div class="video-views">${parseInt(views).toLocaleString()} views</div>
+        </div>
+      `;
 
-    const card = document.createElement("div");
-    card.className = "video-card";
-    card.innerHTML = `
-      <img class="video-thumb" src="${thumbnail}" alt="${title}">
-      <div class="video-info">
-        <div class="video-title">${title}</div>
-        <div class="video-views">${parseInt(views).toLocaleString()} views</div>
-      </div>
-    `;
+      card.onclick = () => {
+        card.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
+      };
 
-    card.onclick = () => {
-      card.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
-    };
+      document.getElementById(containerId).appendChild(card);
+    }
 
-    document.getElementById(containerId).appendChild(card);
-  }
+    nextPageToken = data.nextPageToken;
+  } while (nextPageToken);
 }
 
-fetchPlaylistVideos(playlists.full, "fullVideoGrid");
-fetchPlaylistVideos(playlists.shorts, "shortVideoGrid");
+fetchAllPlaylistVideos(playlists.full, "fullVideoGrid");
+fetchAllPlaylistVideos(playlists.shorts, "shortVideoGrid");
 
 // ✅ Dark Mode Toggle
 const toggle = document.getElementById('darkModeToggle');
